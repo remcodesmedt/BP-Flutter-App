@@ -1,0 +1,4 @@
+enum EUnit {
+  g,
+  ml,
+}

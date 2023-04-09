@@ -1,0 +1,15 @@
+import 'package:project_flutter/domain/IngredientCategory.dart';
+
+import 'EUnit.dart';
+
+class Ingredient {
+  String name;
+  EUnit unit;
+  IngredientCategory category;
+
+  Ingredient({
+    required this.name,
+    required this.unit,
+    required this.category,
+  });
+}
