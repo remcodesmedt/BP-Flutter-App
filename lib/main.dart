@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project_flutter/presentation/screens/Gerechten.dart';
+import 'package:project_flutter/presentation/screens/Home.dart';
+import 'package:project_flutter/presentation/screens/Ingredienten.dart';
+import 'package:project_flutter/presentation/screens/Planning.dart';
+import 'package:project_flutter/presentation/screens/ShoppingList.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,13 +40,44 @@ class MyHomePage extends StatefulWidget {
 //soortvan component die properties heeft en telkens die state wijzigen gaat de
 //component rerenderen (die build method dus)
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _currentIndex = 0;
 
-  void _incrementCounter() {
+  void onNavigate(int index) {
     setState(() {
-      _counter++;
+      _currentIndex = index;
     });
   }
+
+  List<BottomNavigationBarItem> navigationItems = [
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.home),
+        label: "Home",
+        backgroundColor: Colors.deepPurple),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.dining),
+        label: "Gerechten",
+        backgroundColor: Colors.deepPurpleAccent),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.egg),
+        label: "Ingrediënten",
+        backgroundColor: Colors.purple),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.menu_book),
+        label: "Planning",
+        backgroundColor: Colors.purpleAccent),
+    const BottomNavigationBarItem(
+        icon: Icon(Icons.receipt_long),
+        label: "Shopping list",
+        backgroundColor: Color(0xFF4A148C))
+  ];
+
+  final List<Widget> tabs = [
+    const Home(),
+    const Gerechten(),
+    const Ingredienten(),
+    const Planning(),
+    const ShoppingList(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -50,21 +86,12 @@ class _MyHomePageState extends State<MyHomePage> {
         // widget is hier zo de MyHomePage
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text(
-              'Hello world!',
-            ),
-          ],
-        ),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: _incrementCounter,
-      //   tooltip: 'Increment',
-      //   child: const Icon(Icons.add),
-      // ),
+      body: tabs[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+          items: navigationItems,
+          currentIndex: _currentIndex,
+          onTap: onNavigate,
+          iconSize: 30),
     );
   }
 }
