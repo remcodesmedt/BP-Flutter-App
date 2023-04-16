@@ -1,14 +1,16 @@
 import 'package:path/path.dart';
-import 'package:project_flutter/database/tables/IngredientCategoryTable.dart';
 import 'package:sqflite/sqflite.dart';
+
+import 'tables/IngredientCategoryTable.dart';
+import 'tables/IngredientTable.dart';
 
 class DBHelper {
   static late Database _db;
 
   static Future<void> _createTables(Database db, int version) async {
     print("creating tables");
-    //alle create statements
     await db.execute(IngredientCategoryTable.CREATE_TABLE);
+    await db.execute(IngredientTable.CREATE_TABLE);
   }
 
   static Future<void> _upgradeTables(
@@ -19,7 +21,8 @@ class DBHelper {
 
   static Future<void> _dropAll(Database db) async {
     print("dropping tables");
-    db.execute(IngredientCategoryTable.DROP_TABLE);
+    await db.execute(IngredientCategoryTable.DROP_TABLE);
+    await db.execute(IngredientTable.DROP_TABLE);
   }
 
   static Future<void> init() async {

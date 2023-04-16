@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_flutter/database/DBHelper.dart';
 
 import '../../database/testdata/IngredientCategoryMock.dart';
+import '../../database/testdata/IngredientMock.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -16,11 +17,13 @@ class _HomeState extends State<Home> {
   Future<void> fillDb() async {
     print("inserting mocks");
     await IngredientCategoryMock.insertMocks();
+    await IngredientMock.insertMocks();
   }
 
   Future<void> logItems() async {
     print("logging mocks");
     await IngredientCategoryMock.logMocks();
+    await IngredientMock.logMocks();
   }
 
   Future<void> fabClicked() async {
