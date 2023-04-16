@@ -11,18 +11,9 @@ class IngredientInterface {
   static Future<List<Ingredient>> getItems() async {
     final db = DBHelper.getDB();
 
-    var columns = [
-      IngredientTable.COLUMN_ID,
-      "${IngredientTable.TABLE_NAME}.${IngredientTable.COLUMN_NAME}",
-      IngredientTable.COLUMN_UNIT,
-      "${IngredientCategoryTable.TABLE_NAME}.${IngredientCategoryTable.COLUMN_NAME} AS category_name",
-      "${IngredientTable.TABLE_NAME}.${IngredientTable.COLUMN_INGREDIENTCATEGORY}"
-    ];
+    var columns = IngredientTable.COLUMNS_FOR_SELECT;
 
-    var joinClause = "${IngredientTable.TABLE_NAME} INNER JOIN "
-        "${IngredientCategoryTable.TABLE_NAME} "
-        "ON ${IngredientTable.TABLE_NAME}.${IngredientTable.COLUMN_INGREDIENTCATEGORY} "
-        "= ${IngredientCategoryTable.TABLE_NAME}.${IngredientCategoryTable.COLUMN_ID}";
+    var joinClause = IngredientTable.JOIN_CLAUSE;
 
     final res =
         await db.rawQuery("SELECT ${columns.join(',')} FROM $joinClause");
@@ -60,12 +51,12 @@ class IngredientInterface {
   static Future<void> insertItems(Ingredient ingredient) async {
     final db = DBHelper.getDB();
 
-      final values = <String, Object>{
-        IngredientTable.COLUMN_NAME: ingredient.name,
-        IngredientTable.COLUMN_UNIT: ingredient.unit.toString(),
-        IngredientTable.COLUMN_INGREDIENTCATEGORY: ingredient.category.id
-      };
+    final values = <String, Object>{
+      IngredientTable.COLUMN_NAME: ingredient.name,
+      IngredientTable.COLUMN_UNIT: ingredient.unit.toString(),
+      IngredientTable.COLUMN_INGREDIENTCATEGORY: ingredient.category.id
+    };
 
-      await db.insert(IngredientTable.TABLE_NAME, values);
+    await db.insert(IngredientTable.TABLE_NAME, values);
   }
 }

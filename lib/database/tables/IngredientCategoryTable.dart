@@ -12,4 +12,9 @@ class IngredientCategoryTable {
   """;
 
   static const String DROP_TABLE = "DROP TABLE IF EXISTS $TABLE_NAME";
+
+  static const COLUMNS_FOR_SELECT = [
+    IngredientCategoryTable.COLUMN_ID,
+    IngredientCategoryTable.COLUMN_NAME
+  ];
 }

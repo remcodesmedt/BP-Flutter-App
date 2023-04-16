@@ -6,10 +6,11 @@ import 'package:project_flutter/domain/IngredientCategory.dart';
 class IngredientCategoryInterface {
   static Future<List<IngredientCategory>> getItems() async {
     final db = DBHelper.getDB();
-    final res = await db.query(IngredientCategoryTable.TABLE_NAME, columns: [
-      IngredientCategoryTable.COLUMN_ID,
-      IngredientCategoryTable.COLUMN_NAME
-    ]);
+
+    var columns = IngredientCategoryTable.COLUMNS_FOR_SELECT;
+
+    final res =
+        await db.query(IngredientCategoryTable.TABLE_NAME, columns: columns);
 
     List<IngredientCategory> categories = [];
 

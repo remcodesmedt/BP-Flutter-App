@@ -2,7 +2,6 @@ import 'package:project_flutter/domain/EUnit.dart';
 
 import '../../domain/Ingredient.dart';
 import '../../domain/IngredientCategory.dart';
-import '../interfaces/IngredientCategoryInterface.dart';
 import '../interfaces/IngredientInterface.dart';
 
 class IngredientMock {
