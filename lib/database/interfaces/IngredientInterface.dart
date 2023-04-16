@@ -57,11 +57,9 @@ class IngredientInterface {
     return ingredients;
   }
 
-  static Future<void> insertItems(
-      List<Ingredient> ingredients) async {
-    final db = await DBHelper.getDB();
+  static Future<void> insertItems(Ingredient ingredient) async {
+    final db = DBHelper.getDB();
 
-    ingredients.forEach((ingredient) async {
       final values = <String, Object>{
         IngredientTable.COLUMN_NAME: ingredient.name,
         IngredientTable.COLUMN_UNIT: ingredient.unit.toString(),
@@ -69,6 +67,5 @@ class IngredientInterface {
       };
 
       await db.insert(IngredientTable.TABLE_NAME, values);
-    });
   }
 }

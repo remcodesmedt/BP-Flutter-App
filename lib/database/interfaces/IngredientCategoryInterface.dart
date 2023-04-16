@@ -22,16 +22,13 @@ class IngredientCategoryInterface {
     return categories;
   }
 
-  static Future<void> insertItems(
-      List<IngredientCategory> ingredientCategories) async {
-    final db = await DBHelper.getDB();
+  static Future<void> insertItem(IngredientCategory ingredientCategory) async {
+    final db = DBHelper.getDB();
 
-    ingredientCategories.forEach((it) async {
-      final values = <String, Object>{
-        IngredientCategoryTable.COLUMN_NAME: it.name
-      };
+    final values = <String, Object>{
+      IngredientCategoryTable.COLUMN_NAME: ingredientCategory.name
+    };
 
-      await db.insert(IngredientCategoryTable.TABLE_NAME, values);
-    });
+    await db.insert(IngredientCategoryTable.TABLE_NAME, values);
   }
 }
