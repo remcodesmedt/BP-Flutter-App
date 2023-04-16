@@ -5,7 +5,11 @@ import 'package:project_flutter/presentation/screens/Ingredienten.dart';
 import 'package:project_flutter/presentation/screens/Planning.dart';
 import 'package:project_flutter/presentation/screens/ShoppingList.dart';
 
-void main() {
+import 'database/DBHelper.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DBHelper.init();
   runApp(const MyApp());
 }
 

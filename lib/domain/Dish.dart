@@ -1,9 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:project_flutter/domain/IngredientAmount.dart';
-import 'package:project_flutter/domain/Tag.dart';
 
 class Dish {
+  int id;
   String name;
   String? description;
   Uint8List image;
@@ -11,9 +11,9 @@ class Dish {
   int servings;
   List<String>? instructions;
   List<IngredientAmount> ingredients;
-  List<Tag>? tags;
 
   Dish({
+    required this.id,
     required this.name,
     this.description,
     required this.image,
@@ -21,6 +21,5 @@ class Dish {
     required this.servings,
     this.instructions,
     required this.ingredients,
-    this.tags,
   });
 }
