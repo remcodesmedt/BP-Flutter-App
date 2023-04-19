@@ -2,7 +2,7 @@ class IngredientCategoryTable {
   static const String TABLE_NAME = "ingredientcategory";
 
   static const String COLUMN_ID = "ingredientcategoryid";
-  static const String COLUMN_NAME = "name";
+  static const String COLUMN_NAME = "ingredientcategoryname";
 
   static const String CREATE_TABLE = """
     CREATE TABLE IF NOT EXISTS $TABLE_NAME (

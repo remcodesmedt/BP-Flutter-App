@@ -28,7 +28,7 @@ class IngredientMock {
 
     //insert them into the db
     ingredients.forEach((ingredient) async {
-      await IngredientInterface.insertItems(ingredient);
+      await IngredientInterface.insertItem(ingredient);
     });
   }
 

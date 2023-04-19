@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_flutter/database/DBHelper.dart';
+import 'package:project_flutter/database/testdata/ShoppingListsMock.dart';
 
 import '../../database/testdata/IngredientCategoryMock.dart';
 import '../../database/testdata/IngredientMock.dart';
@@ -18,12 +19,14 @@ class _HomeState extends State<Home> {
     print("inserting mocks");
     await IngredientCategoryMock.insertMocks();
     await IngredientMock.insertMocks();
+    await ShoppingListMock.insertMocks();
   }
 
   Future<void> logItems() async {
     print("logging mocks");
     await IngredientCategoryMock.logMocks();
     await IngredientMock.logMocks();
+    await ShoppingListMock.logMocks();
   }
 
   Future<void> fabClicked() async {

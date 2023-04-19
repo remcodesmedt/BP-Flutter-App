@@ -4,6 +4,11 @@ enum EUnit {
 }
 
 extension EUnitExtension on EUnit {
+
+  String toShortString(){
+    return this.toString().split('.').last;
+  }
+
   static EUnit fromString(String value) {
     switch (value.toLowerCase()) {
       case 'g':

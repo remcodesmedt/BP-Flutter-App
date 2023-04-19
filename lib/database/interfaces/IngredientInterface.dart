@@ -24,18 +24,9 @@ class IngredientInterface {
       var id = map[IngredientTable.COLUMN_ID] as int;
       var name = map[IngredientTable.COLUMN_NAME] as String;
       var unitString = map[IngredientTable.COLUMN_UNIT] as String;
-      var categoryid = map[IngredientTable.COLUMN_INGREDIENTCATEGORY] as int;
+      var categoryid = map[IngredientTable.COLUMN_INGREDIENTCATEGORYID] as int;
       var categoryname = map["category_name"] as String;
-
-      var unit = EUnit.g;
-      switch (unitString) {
-        case "g":
-          unit = EUnit.g;
-          break;
-        case "ml":
-          unit = EUnit.ml;
-          break;
-      }
+      var unit = EUnitExtension.fromString(unitString);
 
       ingredients.add(Ingredient(
         id: id,
@@ -48,13 +39,13 @@ class IngredientInterface {
     return ingredients;
   }
 
-  static Future<void> insertItems(Ingredient ingredient) async {
+  static Future<void> insertItem(Ingredient ingredient) async {
     final db = DBHelper.getDB();
 
     final values = <String, Object>{
       IngredientTable.COLUMN_NAME: ingredient.name,
-      IngredientTable.COLUMN_UNIT: ingredient.unit.toString(),
-      IngredientTable.COLUMN_INGREDIENTCATEGORY: ingredient.category.id
+      IngredientTable.COLUMN_UNIT: ingredient.unit.toShortString(),
+      IngredientTable.COLUMN_INGREDIENTCATEGORYID: ingredient.category.id
     };
 
     await db.insert(IngredientTable.TABLE_NAME, values);
