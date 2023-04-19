@@ -20,14 +20,17 @@ class ShoppingListTable {
   static final COLUMNS_FOR_SELECT = [
     "$TABLE_NAME.$COLUMN_ID",
     COLUMN_NAME,
+
     IngredientAmountTable.COLUMN_ID,
     IngredientAmountTable.COLUMN_AMOUNT,
     "${IngredientAmountTable.TABLE_NAME}.${IngredientAmountTable.COLUMN_SHOPPINGLIST_ID}",
     "${IngredientAmountTable.TABLE_NAME}.${IngredientAmountTable.COLUMN_INGREDIENT_ID}",
+
     "${IngredientTable.TABLE_NAME}.${IngredientTable.COLUMN_ID}",
     IngredientTable.COLUMN_NAME,
     IngredientTable.COLUMN_UNIT,
     "${IngredientTable.TABLE_NAME}.${IngredientTable.COLUMN_INGREDIENTCATEGORYID}",
+
     "${IngredientCategoryTable.TABLE_NAME}.${IngredientCategoryTable.COLUMN_ID}",
     IngredientCategoryTable.COLUMN_NAME
   ];
