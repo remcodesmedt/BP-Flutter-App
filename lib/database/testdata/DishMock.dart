@@ -82,7 +82,7 @@ class DishMock {
     await DishInterface.insertItem(dish2);
   }
 
-  static Future<void> logMocks() async {
+  static Future<Dish> logMocks() async {
     print("Shoppinglist----------------------------------------");
 
     //get dishes from the db
@@ -104,5 +104,6 @@ class DishMock {
         print("- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
       });
     }
+    return dishes.first;
   }
 }
