@@ -22,4 +22,10 @@ class Dish {
     this.instructions,
     required this.ingredients,
   });
+
+  Dish.withId(this.id)
+      : name = '',
+        image = Uint8List(0),
+        servings = 0,
+        ingredients = [];
 }

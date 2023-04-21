@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:project_flutter/database/DBHelper.dart';
 import 'package:project_flutter/database/testdata/DishMock.dart';
+import 'package:project_flutter/database/testdata/MealPlanMock.dart';
 import 'package:project_flutter/database/testdata/ShoppingListsMock.dart';
 import 'package:project_flutter/domain/Dish.dart';
 
@@ -26,6 +27,7 @@ class _HomeState extends State<Home> {
     await IngredientMock.insertMocks();
     await ShoppingListMock.insertMocks();
     await DishMock.insertMocks();
+    await MealPlanMock.insertMocks();
   }
 
   Future<void> logItems() async {
@@ -34,6 +36,7 @@ class _HomeState extends State<Home> {
     await IngredientMock.logMocks();
     await ShoppingListMock.logMocks();
     var dish = await DishMock.logMocks();
+    await MealPlanMock.logMocks();
     setState(() {
       _imageData = dish.image;
     });

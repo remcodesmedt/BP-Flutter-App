@@ -26,7 +26,7 @@ class DishMock {
             name: "",
             unit: EUnit.g,
             category: IngredientCategory(id: 0, name: "")),
-        amount: 25.0);
+        amount: 125.0);
 
     final ingrAmount2 = IngredientAmount(
         id: 0,
@@ -35,7 +35,7 @@ class DishMock {
             name: "",
             unit: EUnit.g,
             category: IngredientCategory(id: 0, name: "")),
-        amount: 15.0);
+        amount: 200.0);
 
     //images as bytearray
     var img1 = await imageToUint8List("assets/images/dishImg1.jpg");
@@ -79,6 +79,8 @@ class DishMock {
 
     //insert list into db
     await DishInterface.insertItem(dish1);
+    await DishInterface.insertItem(dish2);
+    dish2.name = "mijnen derde zeker";
     await DishInterface.insertItem(dish2);
   }
 
