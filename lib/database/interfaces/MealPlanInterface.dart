@@ -95,6 +95,9 @@ class MealPlanInterface {
       if (currentMealPlan?.id != mealPlanId) {
         // If not, add the previous mealplan to the result (if there was one)
         if (currentMealPlan != null) {
+          if (currentDish != null){
+            currentDishes.add(currentDish!);
+          }
           currentMealPlan!.dishes = currentDishes.toList();
           mealplans.add(currentMealPlan!);
           currentDishes.clear();
