@@ -10,20 +10,20 @@ class IngredientMock {
     final ingredients = [
       Ingredient(
           id: 0,
-          name: "kweetni",
+          name: "Appel",
           unit: EUnit.g,
           category: IngredientCategory(id: 2, name: "")),
       //only id matters really
       Ingredient(
           id: 0,
-          name: "kweetni part 2",
+          name: "Melk",
           unit: EUnit.ml,
           category: IngredientCategory(id: 5, name: "")),
       Ingredient(
           id: 0,
-          name: "kweetni part 500",
+          name: "Aardappel",
           unit: EUnit.g,
-          category: IngredientCategory(id: 6, name: "")),
+          category: IngredientCategory(id: 1, name: "")),
     ];
 
     //insert them into the db
@@ -32,14 +32,19 @@ class IngredientMock {
     });
   }
 
-  static Future<void> logMocks() async {
-    print("Ingredient----------------------------------------");
-    //get ingredients from the db
+  static Future<String> getLogsMocks() async {
+    String output = "";
+    // print("Ingredient----------------------------------------");
+
     final ingredients = await IngredientInterface.getItems();
-    //just log them for now
+
     for (final c in ingredients) {
-      print(
-          "${c.id}: ${c.name}, unit: ${c.unit}, category: ${c.category.id} - ${c.category.name}");
+      output +=
+          "${c.id}: ${c.name}, unit: ${c.unit.toShortString()}, category: ${c.category.name}\n";
+      // print(
+      //     "${c.id}: ${c.name}, unit: ${c.unit}, category: ${c.category.id} - ${c.category.name}");
     }
+
+    return output += "\n";
   }
 }

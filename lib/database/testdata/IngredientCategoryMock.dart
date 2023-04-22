@@ -23,13 +23,17 @@ class IngredientCategoryMock {
     });
   }
 
-  static Future<void> logMocks() async {
-    print("IngredientCategory----------------------------------------");
-    //get ingredientcategories from the db
+  static Future<String> getMocksLogs() async {
+    String output = "IngredientCategory----------\n";
+    // print("IngredientCategory----------------------------------------");
+
     final categories = await IngredientCategoryInterface.getItems();
-    //just log them for now
+
     for (final c in categories) {
-      print("${c.id}: ${c.name}");
+      output += "${c.id}: ${c.name}\n";
+      // print("${c.id}: ${c.name}");
     }
+
+    return output+="\n";
   }
 }

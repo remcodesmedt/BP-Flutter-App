@@ -32,23 +32,33 @@ class MealPlanMock {
     await MealPlanInterface.insertItem(mealplan2);
   }
 
-  static Future<void> logMocks() async {
-    print("MealPlan----------------------------------------");
+  static Future<String> getLogsMocks() async {
+    String output = "";
+    // print("MealPlan----------------------------------------");
 
     final mealPlans = await MealPlanInterface.getItems(null);
 
     mealPlans.forEach((mealPlan) {
-      print(
-          "mealplan ${mealPlan.id}: week van ${mealPlan.startDate} - ${mealPlan.endDate}");
+      output +=
+          "mealplan ${mealPlan.id}: week van ${mealPlan.startDate.toString().substring(0, 10)}"
+          " - ${mealPlan.endDate.toString().substring(0, 10)}\n";
+      // print(
+      //     "mealplan ${mealPlan.id}: week van ${mealPlan.startDate} - ${mealPlan.endDate}");
 
       int i = 1;
       mealPlan.dishes.forEach((dish) {
-        print("-Dish ${i++}: ");
-        dish?.ingredients.forEach((ingr) {
-          print(
-              "--${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
+        output += "-Dish ${i++}: \n";
+        // print("-Dish ${i++}: ");
+        dish.ingredients.forEach((ingr) {
+          output +=
+              "--${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}\n";
+          // print(
+          //     "--${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
         });
       });
+      output += "\n";
     });
+
+    return output += "\n";
   }
 }

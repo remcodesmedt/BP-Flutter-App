@@ -2,13 +2,12 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:project_flutter/database/DBHelper.dart';
-import 'package:project_flutter/database/testdata/DishMock.dart';
-import 'package:project_flutter/database/testdata/MealPlanMock.dart';
-import 'package:project_flutter/database/testdata/ShoppingListsMock.dart';
-import 'package:project_flutter/domain/Dish.dart';
 
+import '../../database/testdata/DishMock.dart';
 import '../../database/testdata/IngredientCategoryMock.dart';
 import '../../database/testdata/IngredientMock.dart';
+import '../../database/testdata/MealPlanMock.dart';
+import '../../database/testdata/ShoppingListsMock.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,57 +17,79 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String _displayText = "Homescreen";
-  Uint8List? _imageData = null;
+  String? displayText;
+  Uint8List? _imageData;
 
-  Future<void> fillDb() async {
-    print("inserting mocks");
-    await IngredientCategoryMock.insertMocks();
-    await IngredientMock.insertMocks();
-    await ShoppingListMock.insertMocks();
-    await DishMock.insertMocks();
-    await MealPlanMock.insertMocks();
-  }
+  Future<void> createDB() async {
+    await DBHelper.init();
 
-  Future<void> logItems() async {
-    print("logging mocks");
-    await IngredientCategoryMock.logMocks();
-    await IngredientMock.logMocks();
-    await ShoppingListMock.logMocks();
-    var dish = await DishMock.logMocks();
-    await MealPlanMock.logMocks();
     setState(() {
-      _imageData = dish.image;
+      displayText =
+          "Database gecreëerd, ga naar gerechten om de databank te vullen!";
     });
   }
 
-  Future<void> fabClicked() async {
-    await fillDb();
-    await logItems();
+  Future<void> insertData() async {
     setState(() {
-      _displayText = "Done";
+      displayText = "Data toevoegen...";
     });
+
+    try {
+      await IngredientCategoryMock.insertMocks();
+      await IngredientMock.insertMocks();
+      await ShoppingListMock.insertMocks();
+      await DishMock.insertMocks();
+      await MealPlanMock.insertMocks();
+      setState(() {
+        displayText = "Data ingevoerd!";
+      });
+    } catch (e) {
+      setState(() {
+        displayText = "Databank nog niet aangemaakt!";
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(
-            child: Text(
-              _displayText ?? "Homescreen",
-              textAlign: TextAlign.center,
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  textStyle: const TextStyle(fontSize: 18.0)),
+              onPressed: createDB,
+              child: const Text(
+                "Druk hier om de databank te creëren!",
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  textStyle: const TextStyle(fontSize: 18.0)),
+              onPressed: insertData,
+              child: const Text(
+                "Druk hier om de databank te vullen!",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          if (displayText != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Text(displayText!),
+            ),
           if (_imageData != null) MyImageWidget(imageData: _imageData!),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: fabClicked,
-        child: const Icon(Icons.add),
       ),
     );
   }
@@ -90,10 +111,10 @@ class MyImageWidget extends StatelessWidget {
           return child;
         }
         return AnimatedOpacity(
-          child: child,
           opacity: frame == null ? 0 : 1,
           duration: const Duration(seconds: 1),
           curve: Curves.easeOut,
+          child: child,
         );
       },
     );

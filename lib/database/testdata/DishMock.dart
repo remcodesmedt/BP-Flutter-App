@@ -33,9 +33,9 @@ class DishMock {
     var dish1 = Dish(
         id: 0,
         name: "mijn dish",
-        description: "leuke dish",
+        description: "makkelijk te maken",
         image: img1,
-        preparationTime: 15,
+        preparationTime: 10,
         servings: 2,
         instructions: [
           "verwarm de oven voor",
@@ -50,7 +50,7 @@ class DishMock {
     var dish2 = Dish(
         id: 0,
         name: "mijn tweede dish",
-        description: "minder leuke dish",
+        description: "lekker!",
         image: img2,
         preparationTime: 30,
         servings: 1,
@@ -68,33 +68,40 @@ class DishMock {
     //insert list into db
     await DishInterface.insertItem(dish1);
     await DishInterface.insertItem(dish2);
-    dish2.name = "mijnen derde zeker";
+    dish2.name = "mijn derde dish";
     await DishInterface.insertItem(dish2);
   }
 
-  static Future<Dish> logMocks() async {
-    print("Shoppinglist----------------------------------------");
+  static Future<String> getLogsMocks() async {
+    String output = "";
+    // print("Dishes----------------------------------------");
 
-    //get dishes from the db
     final dishes = await DishInterface.getItems();
 
-    //just log them for now
     for (final dish in dishes) {
-      print("${dish.id}: ${dish.name}, ${dish.description}, ${dish.image}, " +
-          "${dish.preparationTime}, ${dish.servings}");
+      output += "${dish.id}: ${dish.name}, ${dish.description}, " +
+          "Tijd: ${dish.preparationTime}, Personen: ${dish.servings}\n";
+      // print("${dish.id}: ${dish.name}, ${dish.description}, ${dish.image}, " +
+      //     "${dish.preparationTime}, ${dish.servings}");
 
       var i = 1;
-      print("instructions:\n");
-      dish.instructions?.forEach((instr) {
-        print("- Step ${i++}: $instr");
+      output += "instructies:\n";
+      // print("instructions:\n");
+      dish.instructions.forEach((instr) {
+        output += "- Step ${i++}: $instr\n";
+        // print("- Step ${i++}: $instr");
       });
 
-      print("ingredients:\n");
+      output += "ingredients:\n";
+      // print("ingredients:\n");
       dish.ingredients.forEach((ingr) {
-        print(
-            "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
+        output += "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}\n";
+        // print(
+            // "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
       });
+      output += "\n";
     }
-    return dishes.first;
+
+    return output += "\n";
   }
 }

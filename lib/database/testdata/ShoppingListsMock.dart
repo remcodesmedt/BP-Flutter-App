@@ -8,17 +8,18 @@ import '../interfaces/ShoppingListInterface.dart';
 class ShoppingListMock {
   static Future<void> insertMocks() async {
     //for ingredient, only id matters, category could be anything rn
-    final ingrAmount1 =
-        IngredientAmount(id: 0, ingredient: Ingredient.withId(2), amount: 25.0);
+    final ingrAmount1 = IngredientAmount(
+        id: 0, ingredient: Ingredient.withId(2), amount: 100.0);
 
     final ingrAmount2 =
-        IngredientAmount(id: 0, ingredient: Ingredient.withId(1), amount: 15.0);
+        IngredientAmount(id: 0, ingredient: Ingredient.withId(1), amount: 50.0);
 
     final shoppingList1 = ShoppingList(
-        id: 0, name: "mijne lijst", ingredients: [ingrAmount1, ingrAmount2]);
+        id: 0, name: "Mijn lijst", ingredients: [ingrAmount1, ingrAmount2]);
+
     final shoppingList2 = ShoppingList(
         id: 0,
-        name: "mijne lijst part 2",
+        name: "Mijn tweede lijst",
         ingredients: [ingrAmount2, ingrAmount1]);
 
     //insert list into db
@@ -26,19 +27,24 @@ class ShoppingListMock {
     await ShoppingListInterface.insertItem(shoppingList2);
   }
 
-  static Future<void> logMocks() async {
-    print("Shoppinglist----------------------------------------");
+  static Future<String> getLogsMocks() async {
+    String output = "";
+    // print("Shoppinglist----------------------------------------");
 
-    //get shoppinglists from the db
     final shoppingLists = await ShoppingListInterface.getItems();
 
-    //just log them for now
     for (final l in shoppingLists) {
-      print("${l.id}: ${l.name}, \ningredients:");
+      output += "${l.id}: ${l.name}: \n-ingredients:\n";
+      // print("${l.id}: ${l.name}: \n-ingredients:");
       for (final i in l.ingredients) {
-        print(
-            "- ${i.ingredient.name}: ${i.amount}${i.ingredient.unit.toShortString()}");
+        output +=
+            "-- ${i.ingredient.name}: ${i.amount}${i.ingredient.unit.toShortString()}\n";
+        // print(
+        //     "- ${i.ingredient.name}: ${i.amount}${i.ingredient.unit.toShortString()}");
       }
+      output += "\n";
     }
+
+    return output += "\n";
   }
 }

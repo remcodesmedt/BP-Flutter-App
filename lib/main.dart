@@ -5,11 +5,7 @@ import 'package:project_flutter/presentation/screens/Ingredienten.dart';
 import 'package:project_flutter/presentation/screens/Planning.dart';
 import 'package:project_flutter/presentation/screens/ShoppingList.dart';
 
-import 'database/DBHelper.dart';
-
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await DBHelper.init();
+void main() {
   runApp(const MyApp());
 }
 
@@ -22,8 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter App',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-      ),
+          primarySwatch: Colors.deepPurple,
+          textTheme: const TextTheme(bodyMedium: TextStyle(fontSize: 18))),
       home: const MyHomePage(title: 'Flutter App'),
     );
   }
@@ -90,7 +86,10 @@ class _MyHomePageState extends State<MyHomePage> {
         // widget is hier zo de MyHomePage
         title: Text(widget.title),
       ),
-      body: tabs[_currentIndex],
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: tabs[_currentIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
           items: navigationItems,
           currentIndex: _currentIndex,
