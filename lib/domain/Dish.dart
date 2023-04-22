@@ -9,7 +9,7 @@ class Dish {
   Uint8List image;
   int? preparationTime;
   int servings;
-  List<String>? instructions;
+  List<String> instructions;
   List<IngredientAmount> ingredients;
 
   Dish({
@@ -19,7 +19,7 @@ class Dish {
     required this.image,
     this.preparationTime,
     required this.servings,
-    this.instructions,
+    required this.instructions,
     required this.ingredients,
   });
 
@@ -27,5 +27,6 @@ class Dish {
       : name = '',
         image = Uint8List(0),
         servings = 0,
+        instructions = [],
         ingredients = [];
 }

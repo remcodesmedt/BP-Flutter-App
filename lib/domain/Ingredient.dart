@@ -14,4 +14,9 @@ class Ingredient {
     required this.unit,
     required this.category,
   });
+
+  Ingredient.withId(this.id)
+      : name = "",
+        unit = EUnit.g,
+        category = IngredientCategory.withId(0);
 }

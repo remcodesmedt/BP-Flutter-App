@@ -116,7 +116,7 @@ class MealPlanInterface {
 
         currentMealPlan = MealPlan(
             id: mealPlanId, startDate: mpStartDate, endDate: mpEndDate);
-        currentMealPlan!.dishes = [currentDish];
+        currentMealPlan!.dishes = [currentDish!];
       } else {
         //same mealplan, so update the dishes OR update the dish its ingredients
         // Check if we're still processing the same dish

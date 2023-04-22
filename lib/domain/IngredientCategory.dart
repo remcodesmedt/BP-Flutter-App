@@ -6,4 +6,6 @@ class IngredientCategory {
     required this.id,
     required this.name,
   });
+
+  IngredientCategory.withId(this.id) : name = "";
 }

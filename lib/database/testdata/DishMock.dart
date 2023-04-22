@@ -20,22 +20,10 @@ class DishMock {
   static Future<void> insertMocks() async {
     //for ingredient, only id matters, category could be anything rn
     final ingrAmount1 = IngredientAmount(
-        id: 0,
-        ingredient: Ingredient(
-            id: 2,
-            name: "",
-            unit: EUnit.g,
-            category: IngredientCategory(id: 0, name: "")),
-        amount: 125.0);
+        id: 0, ingredient: Ingredient.withId(2), amount: 125.0);
 
     final ingrAmount2 = IngredientAmount(
-        id: 0,
-        ingredient: Ingredient(
-            id: 1,
-            name: "",
-            unit: EUnit.g,
-            category: IngredientCategory(id: 0, name: "")),
-        amount: 200.0);
+        id: 0, ingredient: Ingredient.withId(1), amount: 200.0);
 
     //images as bytearray
     var img1 = await imageToUint8List("assets/images/dishImg1.jpg");
@@ -103,7 +91,8 @@ class DishMock {
 
       print("ingredients:\n");
       dish.ingredients.forEach((ingr) {
-        print("- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
+        print(
+            "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
       });
     }
     return dishes.first;
