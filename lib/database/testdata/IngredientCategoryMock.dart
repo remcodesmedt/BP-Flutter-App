@@ -25,13 +25,11 @@ class IngredientCategoryMock {
 
   static Future<String> getMocksLogs() async {
     String output = "IngredientCategory----------\n";
-    // print("IngredientCategory----------------------------------------");
 
     final categories = await IngredientCategoryInterface.getItems();
 
     for (final c in categories) {
       output += "${c.id}: ${c.name}\n";
-      // print("${c.id}: ${c.name}");
     }
 
     return output+="\n";

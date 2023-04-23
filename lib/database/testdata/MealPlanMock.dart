@@ -34,7 +34,6 @@ class MealPlanMock {
 
   static Future<String> getLogsMocks() async {
     String output = "";
-    // print("MealPlan----------------------------------------");
 
     final mealPlans = await MealPlanInterface.getItems(null);
 
@@ -42,18 +41,14 @@ class MealPlanMock {
       output +=
           "mealplan ${mealPlan.id}: week van ${mealPlan.startDate.toString().substring(0, 10)}"
           " - ${mealPlan.endDate.toString().substring(0, 10)}\n";
-      // print(
-      //     "mealplan ${mealPlan.id}: week van ${mealPlan.startDate} - ${mealPlan.endDate}");
 
       int i = 1;
       mealPlan.dishes.forEach((dish) {
         output += "-Dish ${i++}: \n";
-        // print("-Dish ${i++}: ");
+
         dish.ingredients.forEach((ingr) {
           output +=
               "--${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}\n";
-          // print(
-          //     "--${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
         });
       });
       output += "\n";

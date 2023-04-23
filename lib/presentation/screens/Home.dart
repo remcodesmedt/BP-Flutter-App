@@ -25,7 +25,7 @@ class _HomeState extends State<Home> {
 
     setState(() {
       displayText =
-          "Database gecreëerd, ga naar gerechten om de databank te vullen!";
+          "Database gecreëerd!";
     });
   }
 

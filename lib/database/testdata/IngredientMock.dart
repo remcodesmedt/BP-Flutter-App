@@ -34,15 +34,12 @@ class IngredientMock {
 
   static Future<String> getLogsMocks() async {
     String output = "";
-    // print("Ingredient----------------------------------------");
 
     final ingredients = await IngredientInterface.getItems();
 
     for (final c in ingredients) {
       output +=
           "${c.id}: ${c.name}, unit: ${c.unit.toShortString()}, category: ${c.category.name}\n";
-      // print(
-      //     "${c.id}: ${c.name}, unit: ${c.unit}, category: ${c.category.id} - ${c.category.name}");
     }
 
     return output += "\n";

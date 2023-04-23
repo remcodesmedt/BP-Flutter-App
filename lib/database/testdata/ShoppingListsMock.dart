@@ -29,18 +29,14 @@ class ShoppingListMock {
 
   static Future<String> getLogsMocks() async {
     String output = "";
-    // print("Shoppinglist----------------------------------------");
 
     final shoppingLists = await ShoppingListInterface.getItems();
 
     for (final l in shoppingLists) {
       output += "${l.id}: ${l.name}: \n-ingredients:\n";
-      // print("${l.id}: ${l.name}: \n-ingredients:");
       for (final i in l.ingredients) {
         output +=
             "-- ${i.ingredient.name}: ${i.amount}${i.ingredient.unit.toShortString()}\n";
-        // print(
-        //     "- ${i.ingredient.name}: ${i.amount}${i.ingredient.unit.toShortString()}");
       }
       output += "\n";
     }

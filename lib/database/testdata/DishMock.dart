@@ -74,30 +74,23 @@ class DishMock {
 
   static Future<String> getLogsMocks() async {
     String output = "";
-    // print("Dishes----------------------------------------");
 
     final dishes = await DishInterface.getItems();
 
     for (final dish in dishes) {
       output += "${dish.id}: ${dish.name}, ${dish.description}, " +
           "Tijd: ${dish.preparationTime}, Personen: ${dish.servings}\n";
-      // print("${dish.id}: ${dish.name}, ${dish.description}, ${dish.image}, " +
-      //     "${dish.preparationTime}, ${dish.servings}");
 
       var i = 1;
       output += "instructies:\n";
-      // print("instructions:\n");
       dish.instructions.forEach((instr) {
         output += "- Step ${i++}: $instr\n";
-        // print("- Step ${i++}: $instr");
       });
 
       output += "ingredients:\n";
-      // print("ingredients:\n");
       dish.ingredients.forEach((ingr) {
-        output += "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}\n";
-        // print(
-            // "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}");
+        output +=
+            "- ${ingr.ingredient.name}: ${ingr.amount}${ingr.ingredient.unit.toShortString()}\n";
       });
       output += "\n";
     }
