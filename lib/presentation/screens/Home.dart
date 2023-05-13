@@ -2,12 +2,15 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:project_flutter/database/DBHelper.dart';
+import 'package:project_flutter/database/testdata/ExtraImageMock.dart';
 
 import '../../database/testdata/DishMock.dart';
 import '../../database/testdata/IngredientCategoryMock.dart';
 import '../../database/testdata/IngredientMock.dart';
 import '../../database/testdata/MealPlanMock.dart';
 import '../../database/testdata/ShoppingListsMock.dart';
+import '../../domain/ExtraImage.dart';
+import '../widgets/MyImages.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,15 +20,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final double vPaddingButtons = 8.0;
+
   String? displayText;
-  Uint8List? _imageData;
+  List<ExtraImage>? images;
 
   Future<void> createDB() async {
     await DBHelper.init();
 
     setState(() {
-      displayText =
-          "Database gecreëerd!";
+      displayText = "Database gecreëerd!";
     });
   }
 
@@ -50,6 +54,31 @@ class _HomeState extends State<Home> {
     }
   }
 
+  Future<void> insertImages() async {
+    setState(() {
+      displayText = "Images toevoegen...";
+    });
+
+    try {
+      await ExtraImageMock.insertMocks();
+      setState(() {
+        displayText = "Images toegevoegd";
+      });
+    } catch (e) {
+      print(e.toString());
+      setState(() {
+        displayText = "Databank nog niet gemaakt!";
+      });
+    }
+  }
+
+  Future<void> displayImages() async {
+    var res = await ExtraImageMock.getMocks();
+    setState(() {
+      images = res;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +87,7 @@ class _HomeState extends State<Home> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.only(bottom: vPaddingButtons),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
@@ -71,7 +100,7 @@ class _HomeState extends State<Home> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 20),
+            padding: EdgeInsets.only(bottom: vPaddingButtons),
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   minimumSize: const Size.fromHeight(50),
@@ -83,40 +112,41 @@ class _HomeState extends State<Home> {
               ),
             ),
           ),
+          Padding(
+            padding: EdgeInsets.only(bottom: vPaddingButtons),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  textStyle: const TextStyle(fontSize: 18.0)),
+              onPressed: insertImages,
+              child: const Text(
+                "Druk hier om de databank te vullen met extra images!",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: vPaddingButtons),
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size.fromHeight(50),
+                  textStyle: const TextStyle(fontSize: 18.0)),
+              onPressed: displayImages,
+              child: const Text(
+                "Druk hier om de images te bekijken!",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           if (displayText != null)
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: EdgeInsets.symmetric(vertical: vPaddingButtons),
               child: Text(displayText!),
             ),
-          if (_imageData != null) MyImageWidget(imageData: _imageData!),
+          if (images != null && images!.isNotEmpty)
+            MyImagesWidget(images: images!)
         ],
       ),
-    );
-  }
-}
-
-class MyImageWidget extends StatelessWidget {
-  final Uint8List imageData;
-
-  const MyImageWidget({Key? key, required this.imageData}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.memory(
-      imageData,
-      fit: BoxFit.cover,
-      frameBuilder: (BuildContext context, Widget child, int? frame,
-          bool wasSynchronouslyLoaded) {
-        if (wasSynchronouslyLoaded) {
-          return child;
-        }
-        return AnimatedOpacity(
-          opacity: frame == null ? 0 : 1,
-          duration: const Duration(seconds: 1),
-          curve: Curves.easeOut,
-          child: child,
-        );
-      },
     );
   }
 }
