@@ -64,6 +64,16 @@ flutter:
   assets:
     - assets/images/dishImg1.jpg
     - assets/images/dishImg2.jpg
+    - assets/images/extraimage1.png
+    - assets/images/extraimage2.png
+    - assets/images/extraimage3.png
+    - assets/images/extraimage4.png
+    - assets/images/extraimage5.png
+    - assets/images/extraimage6.jpg
+    - assets/images/extraimage7.png
+    - assets/images/extraimage8.png
+    - assets/images/extraimage9.png
+    - assets/images/extraimage10.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
